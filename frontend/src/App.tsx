@@ -7,17 +7,15 @@ import SearchBar from "./components/SearchBar";
 import JobCard from "./components/JobCard";
 
 function App() {
-
   const [keyword, setKeyword] = useState("");
 
-  const [jobs, setJobs] = useState<any[]>([]);
+  const [jobs, setJobs] = useState<any[]>(([]));
 
   const [loading, setLoading] = useState(false);
 
   const [error, setError] = useState("");
 
   const searchJobs = async () => {
-
     if (!keyword) return;
 
     setLoading(true);
@@ -27,137 +25,122 @@ function App() {
     setJobs([]);
 
     try {
-
       const response = await api.get(
         `/search-jobs?keyword=${keyword}`
       );
 
-      console.log(
-        "API Response:",
-        response.data
-      );
+      console.log("API Response:", response.data);
 
       if (Array.isArray(response.data)) {
-
         setJobs(response.data);
-
       } else {
-
         setError("Invalid API response");
       }
-
     } catch (error) {
-
       console.log(error);
 
-      setError(
-        "Failed to fetch jobs"
-      );
+      setError("Failed to fetch jobs");
     }
 
     setLoading(false);
   };
 
   return (
-
     <div
-    style={{
-  padding: "40px 20px",
-  maxWidth: "none",
-
-  fontFamily: "Arial",
-  backgroundColor: "#f3f4f6",
-  minHeight: "100vh"
-}}
+      style={{
+        padding: "20px",
+        maxWidth: "1400px",
+        margin: "0 auto",
+        fontFamily: "Arial",
+        backgroundColor: "#f3f4f6",
+        minHeight: "100vh",
+        boxSizing: "border-box"
+      }}
     >
-
       <h1
-  style={{
-    textAlign: "center",
-    marginBottom: "30px",
-    fontSize: "48px",
-    color: "#111827"
-  }}
->
-  AI Government Job Finder
-</h1>
+        style={{
+          textAlign: "center",
+          marginBottom: "30px",
+          fontSize: "clamp(32px, 6vw, 58px)",
+          color: "#111827",
+          lineHeight: "1.2"
+        }}
+      >
+        AI Government Job Finder
+      </h1>
+
       <SearchBar
         keyword={keyword}
         setKeyword={setKeyword}
         searchJobs={searchJobs}
       />
 
-      {
-        
-  loading && (
-    <div
-      style={{
-        textAlign: "center",
-        marginTop: "40px"
-      }}
-    >
-      <div
-        style={{
-          width: "50px",
-          height: "50px",
-          border: "5px solid #ddd",
-          borderTop: "5px solid #2563eb",
-          borderRadius: "50%",
-          margin: "0 auto",
-          animation: "spin 1s linear infinite"
-        }}
-      />
+      {loading && (
+        <div
+          style={{
+            textAlign: "center",
+            marginTop: "40px"
+          }}
+        >
+          <div
+            style={{
+              width: "50px",
+              height: "50px",
+              border: "5px solid #ddd",
+              borderTop: "5px solid #2563eb",
+              borderRadius: "50%",
+              margin: "0 auto",
+              animation: "spin 1s linear infinite"
+            }}
+          />
 
-      <h2
-        style={{
-          marginTop: "20px",
-          color: "#374151"
-        }}
-      >
-        Fetching latest government jobs...
-      </h2>
-    </div>
-  )
-}
-      
+          <h2
+            style={{
+              marginTop: "20px",
+              color: "#374151",
+              fontSize: "clamp(18px, 3vw, 28px)"
+            }}
+          >
+            Fetching latest government jobs...
+          </h2>
+        </div>
+      )}
 
-      {
-        error &&
+      {error && (
         <h2
           style={{
-            color: "red"
+            color: "red",
+            textAlign: "center",
+            marginTop: "30px"
           }}
         >
           {error}
         </h2>
-      }
+      )}
 
-      {
-        jobs.length === 0 &&
-        !loading &&
-        !error &&
-        (
-          <p>
-            No jobs found
-          </p>
-        )
-      }
+      {jobs.length === 0 && !loading && !error && (
+        <p
+          style={{
+            textAlign: "center",
+            marginTop: "40px",
+            color: "#6b7280",
+            fontSize: "18px"
+          }}
+        >
+          No jobs found
+        </p>
+      )}
 
-      {
-        jobs.map((job, index) => {
+      {jobs.map((job, index) => {
+        if (!job) return null;
 
-          if (!job) return null;
-
-          return (
-
-            <JobCard
-              key={index}
-              job={job}
-            />
-          );
-        })
-      }
-
+        return (
+          <JobCard
+            key={index}
+            job={job}
+          />
+        );
+      })}
     </div>
   );
 }

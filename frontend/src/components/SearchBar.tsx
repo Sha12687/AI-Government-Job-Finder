@@ -9,50 +9,57 @@ function SearchBar({
   setKeyword,
   searchJobs
 }: Props) {
-
   return (
-
     <div
       style={{
-     display : "inline-flex",
-        gap: "10px",
+        display: "flex",
+        gap: "12px",
+        justifyContent: "center",
+        alignItems: "center",
+        flexWrap: "wrap",
         marginBottom: "30px"
       }}
     >
-
-  <div className="col-6">
       <input
         type="text"
-        placeholder="Search jobs like teacher, railway, police..."
+        placeholder="Search jobs like teacher, railway..."
         value={keyword}
         onChange={(e) =>
           setKeyword(e.target.value)
         }
-    style={{
-    width: "500px",
-    padding: "14px",
-    borderRadius: "10px",
-    border: "1px solid gray",
-    fontSize: "16px"
-  }}
+        onKeyDown={(e) => {
+          if (e.key === "Enter") {
+            searchJobs();
+          }
+        }}
+        style={{
+          width: "100%",
+          maxWidth: "700px",
+          padding: "16px",
+          fontSize: "16px",
+          borderRadius: "12px",
+          border: "1px solid #d1d5db",
+          outline: "none",
+          boxSizing: "border-box"
+        }}
       />
-   
-</div>
+
       <button
         onClick={searchJobs}
         style={{
-          padding: "12px 20px",
-          borderRadius: "8px",
-          border: "none",
-          backgroundColor: "#2563eb",
+          padding: "16px 24px",
+          fontSize: "16px",
+          background: "#2563eb",
           color: "white",
+          border: "none",
+          borderRadius: "12px",
           cursor: "pointer",
-          fontSize: "16px"
+          fontWeight: "bold",
+          minWidth: "120px"
         }}
       >
         Search
       </button>
-
     </div>
   );
 }

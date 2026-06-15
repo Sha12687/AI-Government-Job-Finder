@@ -52,7 +52,7 @@ function JobCard({ job }: Props) {
       style={{
         background: "#ffffff",
         borderRadius: "20px",
-        padding: "32px",
+       padding: "clamp(18px, 4vw, 32px)",
         marginTop: "30px",
         boxShadow:
           "0 8px 24px rgba(0,0,0,0.08)",
@@ -79,7 +79,7 @@ function JobCard({ job }: Props) {
           <h2
             style={{
               margin: 0,
-              fontSize: "30px",
+          fontSize: "clamp(22px, 4vw, 30px)",
               color: "#111827"
             }}
           >
@@ -104,8 +104,7 @@ function JobCard({ job }: Props) {
           style={{
             background: "#2563eb",
             color: "white",
-            padding:
-              "14px 22px",
+          padding: "12px 18px",
             borderRadius: "12px",
             textDecoration:
               "none",
@@ -145,8 +144,8 @@ function JobCard({ job }: Props) {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns:
-              "repeat(auto-fit, minmax(220px, 1fr))",
+           gridTemplateColumns:
+  "repeat(auto-fit, minmax(180px, 1fr))",
             gap: "18px"
           }}
         >
