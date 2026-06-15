@@ -2,7 +2,7 @@ import axios from "axios";
 
 const api = axios.create({
 
-   baseURL: "https://your-backend-name.onrender.com"
+   baseURL: "ai-government-job-finder-cvc.up.railway.app"
 });
 
 export default api;
